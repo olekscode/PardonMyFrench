@@ -12,9 +12,13 @@ BaselineOfPardonMyFrench >> baseline: spec [
 		spec
 			baseline: 'NgramModel'
 			with: [ spec repository: 'github://pharo-ai/NgramModel/src' ].
+			
+		spec
+			baseline: 'IdentifierNameSplitter'
+			with: [ spec repository: 'github://olekscode/IdentifierNameSplitter/src' ].
 				
 		"Packages"
 		spec 
-			package: 'PardonMyFrench' with: [ spec requires: #('NgramModel') ];
+			package: 'PardonMyFrench' with: [ spec requires: #('NgramModel' 'IdentifierNameSplitter') ];
 			package: 'PardonMyFrench-Tests' with: [ spec requires: #('PardonMyFrench') ] ].
 ]
