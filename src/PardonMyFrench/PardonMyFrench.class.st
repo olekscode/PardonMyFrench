@@ -17,6 +17,12 @@ PardonMyFrench class >> forFrenchLanguage [
 ]
 
 { #category : #'as yet unclassified' }
+PardonMyFrench class >> languageModelDirectory [
+
+	^ 'pharo-local/iceberg/olekscode/PardonMyFrench/language-models/' asFileReference
+]
+
+{ #category : #'as yet unclassified' }
 PardonMyFrench >> asCleanSentence: aString [
 	"Convert to lowercase, replace all whitespaces with spaces, split identifier names into words, remove all non-alphabetic characters"
 	
@@ -61,6 +67,12 @@ PardonMyFrench >> foreignCommentsInPackage: aPackage [
 		self isForeign: comment ]
 ]
 
+{ #category : #accessing }
+PardonMyFrench >> foreignLanguageModel: aModel [
+
+	foreignLanguageModel := aModel
+]
+
 { #category : #'as yet unclassified' }
 PardonMyFrench >> foreignProbabilityOf: aCollectionOfCharacters [
 	
@@ -90,8 +102,16 @@ PardonMyFrench >> isForeign: aString [
 
 { #category : #'loading language models' }
 PardonMyFrench >> loadEnglishLanguageModel [
+
+	| file |
+	file := self class languageModelDirectory / 'english.ston'.
+	englishLanguageModel := NgramModel readFromFile: file.
 ]
 
 { #category : #'loading language models' }
 PardonMyFrench >> loadFrenchLanguageModel [
+
+	| file |
+	file := self class languageModelDirectory / 'french.ston'.
+	foreignLanguageModel := NgramModel readFromFile: file.
 ]
