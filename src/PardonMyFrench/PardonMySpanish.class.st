@@ -1,11 +1,11 @@
 Class {
-	#name : #PardonMyFrench,
+	#name : #PardonMySpanish,
 	#superclass : #PardonMyLanguage,
 	#category : #PardonMyFrench
 }
 
 { #category : #'as yet unclassified' }
-PardonMyFrench >> foreignLanguage [
+PardonMySpanish >> foreignLanguage [
 
-	^ 'french'
+	^ 'spanish'
 ]
