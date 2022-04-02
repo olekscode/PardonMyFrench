@@ -10,19 +10,22 @@ Class {
 { #category : #'as yet unclassified' }
 PardonMyLanguage >> foreignCommentsInPackage: aPackage [
 
-	| methods foreignComments |
+	| methods comments foreignComments |
 	
 	methods := aPackage methods.
-	foreignComments := OrderedCollection new.
+	comments := OrderedCollection new.
 	
 	methods do: [ :method |
-		method comments 
-			select: [ :comment | languageDetector isForeign: comment ]
-			thenDo: [ :comment | foreignComments add: (
+		method comments do: [ :comment |
+			comments add: (
 				PardonForeignObject new
 					text: comment;
+					languageProbabilities: (languageDetector languageProbabilitiesFor: comment);
 					method: method;
-					yourself) ] ].
+					yourself) ]
+	] displayingProgress: [ :method | method name ].
+	
+	foreignComments := comments reject: [ :comment | #('english' 'other') includes: comment languageProbabilities keys first ].
 	
 	^ foreignComments 
 ]
@@ -40,14 +43,8 @@ PardonMyLanguage >> foreignCommentsInPackages: aCollectionOfPackages [
 	^ comments
 ]
 
-{ #category : #'as yet unclassified' }
-PardonMyLanguage >> foreignLanguage [
-
-	self subclassResponsibility
-]
-
 { #category : #initialization }
 PardonMyLanguage >> initialize [
 	super initialize.
-	languageDetector := PardonLanguageDetector for: self foreignLanguage.
+	languageDetector := LanguageDetector new.
 ]

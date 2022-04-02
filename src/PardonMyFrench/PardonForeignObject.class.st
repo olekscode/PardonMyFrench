@@ -3,10 +3,23 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'text',
+		'languageProbabilities',
 		'method'
 	],
 	#category : #PardonMyFrench
 }
+
+{ #category : #accessing }
+PardonForeignObject >> languageProbabilities [
+
+	^ languageProbabilities
+]
+
+{ #category : #accessing }
+PardonForeignObject >> languageProbabilities: anObject [
+
+	languageProbabilities := anObject
+]
 
 { #category : #accessing }
 PardonForeignObject >> method [
