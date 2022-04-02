@@ -3,9 +3,3 @@ Class {
 	#superclass : #PardonMyLanguage,
 	#category : #PardonMyFrench
 }
-
-{ #category : #'as yet unclassified' }
-PardonMyFrench >> foreignLanguage [
-
-	^ 'french'
-]

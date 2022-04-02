@@ -25,7 +25,10 @@ PardonMyLanguage >> foreignCommentsInPackage: aPackage [
 					yourself) ]
 	] displayingProgress: [ :method | method name ].
 	
-	foreignComments := comments reject: [ :comment | #('english' 'other') includes: comment languageProbabilities keys first ].
+	foreignComments := comments
+		reject: [ :comment |
+			(#('english' 'other') includes: comment languageProbabilities keys first) or: [ 
+				comment languageProbabilities values first = 0 ] ].
 	
 	^ foreignComments 
 ]
@@ -47,4 +50,10 @@ PardonMyLanguage >> foreignCommentsInPackages: aCollectionOfPackages [
 PardonMyLanguage >> initialize [
 	super initialize.
 	languageDetector := LanguageDetector new.
+]
+
+{ #category : #accessing }
+PardonMyLanguage >> languageDetector [
+
+	^ languageDetector
 ]
