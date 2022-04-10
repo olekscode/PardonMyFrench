@@ -46,6 +46,41 @@ PardonMyFrench >> foreignCommentsInPackages: aCollectionOfPackages [
 	^ comments
 ]
 
+{ #category : #'as yet unclassified' }
+PardonMyFrench >> foreignMethodNamesInPackage: aPackage [
+
+	| nameAsSentence methodNames foreignMethodNames |
+	
+	methodNames := aPackage methods collect: [ :method |
+		nameAsSentence := ' ' join: method selector splitIdentifierName.
+		
+		PardonForeignObject new
+			text: method selector;
+			languageProbabilities: (languageDetector languageProbabilitiesFor: nameAsSentence);
+			method: method;
+			yourself ].
+	
+	foreignMethodNames := methodNames
+		reject: [ :methodName |
+			(#('english' 'other') includes: methodName languageProbabilities keys first) or: [ 
+				methodName languageProbabilities values first = 0 ] ].
+	
+	^ foreignMethodNames 
+]
+
+{ #category : #'as yet unclassified' }
+PardonMyFrench >> foreignMethodNamesInPackages: aCollectionOfPackages [
+
+	| methodNames |
+	methodNames := OrderedCollection new.
+	
+	aCollectionOfPackages
+		do: [ :package | methodNames addAll: (self foreignMethodNamesInPackage: package) ]
+		displayingProgress: [ :package | package name ].
+
+	^ methodNames
+]
+
 { #category : #initialization }
 PardonMyFrench >> initialize [
 	super initialize.
