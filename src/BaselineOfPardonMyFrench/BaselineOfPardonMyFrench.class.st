@@ -10,8 +10,8 @@ BaselineOfPardonMyFrench >> baseline: spec [
 	spec for: #common do: [	
 		"External dependencies"
 		spec
-			baseline: 'NgramModel'
-			with: [ spec repository: 'github://pharo-ai/NgramModel/src' ].
+			baseline: 'LanguageDetector'
+			with: [ spec repository: 'github://olekscode/LanguageDetector/src' ].
 			
 		spec
 			baseline: 'IdentifierNameSplitter'
@@ -19,6 +19,6 @@ BaselineOfPardonMyFrench >> baseline: spec [
 				
 		"Packages"
 		spec 
-			package: 'PardonMyFrench' with: [ spec requires: #('NgramModel' 'IdentifierNameSplitter') ];
+			package: 'PardonMyFrench' with: [ spec requires: #('LanguageDetector' 'IdentifierNameSplitter') ];
 			package: 'PardonMyFrench-Tests' with: [ spec requires: #('PardonMyFrench') ] ].
 ]
