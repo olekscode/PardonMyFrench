@@ -30,4 +30,12 @@ spec
 
 ## How to use it
 
+```st
+packages := Package allInstances select: [ :package |
+	package name beginsWith: 'Cormas' ].
 
+pardon := PardonMyFrench new.
+
+pardon foreignMethodNamesInPackages: packages.
+pardon foreignCommentsInPackages: packages.
+```
